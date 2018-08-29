@@ -1,0 +1,22 @@
+body{ background-image:url("../img/background-page.jpg"); background-repeat:no-repeat; background-position:center; background-size:cover; padding:10px;}
+.container-main {
+  margin-top: 50px;
+  .container {
+    @media screen and (max-width: 768px) {
+      font-size: 14px;
+      padding: 0;
+      .jumbotron {
+        padding: 15px;
+        font: inherit;
+      }
+    }
+  }
+}
+.login-form {
+  @media screen and (max-width: 768px) {
+    .main-div {
+      max-width: fit-content;
+      padding: 20px;
+    }
+  }
+}
