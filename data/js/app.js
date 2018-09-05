@@ -2,14 +2,26 @@
 'use strict';
 
 var app = angular.module('myApp', [
-  'ui.router'
+  'ui.router',
+  'angular-marquee'
 ]);
 
-app.controller("MainController",['$scope', '$state', 'httpService', function($scope, $state, httpService){
+app.controller("MainController",['$scope', '$state', 'httpService', 'commonService',
+	function($scope, $state, httpService, commonService){
 
-	$scope.goState = function(state) {
+	var goState = function (state) {
 		$state.go(state);
 	};
-	
-	
+
+	var checkLogin = function() {
+		var url = commonService.URL_CHECK_LOGIN;
+		httpService.GET(url).then(function (response) {
+			if (!response.isLogin) {
+				goState("login");
+			}
+		});
+	};
+
+	checkLogin();
+
 }]);

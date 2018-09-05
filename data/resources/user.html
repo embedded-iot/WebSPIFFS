@@ -1,0 +1,40 @@
+ <!-- Fixed navbar -->
+	<div class="container">
+		<!-- Main component for a primary marketing message or call to action -->
+		<div class="jumbotron">
+			<div class="heading-page">Cài đặt chung</div>
+			<hr>
+			<div class="row no-margin setting-wifi">
+				<div class="panel panel-default col-md-6 no-padding setting-item">
+					<div class="panel-heading">Chế độ Access Point (Phát ra wifi)</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label>Tên wifi</label>
+							<input type="text" name="name" class="form-control" ng-model="vm.txtAPName" required>
+						</div>
+						<div class="form-group">
+							<label>Mật khẩu</label>
+							<input type="text" name="name" class="form-control" ng-model="vm.txtAPPass">
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default col-md-6 no-padding setting-item">
+					<div class="panel-heading">Tài khoản đăng nhập</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label>Tên tài khoản</label>
+							<input type="text" name="name" class="form-control" ng-model="vm.txtAPName" disabled="disabled">
+						</div>
+						<div class="form-group">
+							<label>Mật khẩu</label>
+							<input type="text" name="name" class="form-control" ng-model="vm.txtPassLogin">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="listBtn">
+				<a class="btn btn-primary" role="button" ng-click="vm.save()"><i class="glyphicon glyphicon-floppy-save"></i> Lưu cài đặt</a>
+			</div>
+
+		</div>
+	</div> <!-- /container -->

@@ -1,9 +1,13 @@
 'use strict';
 
-app.service('httpService',function($http, $q) {
+app.service('httpService', function($http, $q, $httpParamSerializerJQLike) {
 
   // implementation
-  function POST(url, data, config) {
+  function POST(url, data) {
+    var config = {
+      headers : { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" }
+    };
+    data = $httpParamSerializerJQLike(data);
     var def = $q.defer();
     $http.post(url, data, config)
       .success(function(response) {
@@ -13,10 +17,22 @@ app.service('httpService',function($http, $q) {
         def.reject(error);
       });
     return def.promise;
-  }
+  };
+  function GET(url) {
+    var def = $q.defer();
+    $http.get(url)
+      .success(function(response) {
+        def.resolve(response);
+      })
+      .error(function(error) {
+        def.reject(error);
+      });
+    return def.promise;
+  };
   // interface
-    var service = {
-      POST: POST,
-    };
-    return service;
+  var service = {
+    POST: POST,
+    GET: GET
+  };
+  return service;
   });
