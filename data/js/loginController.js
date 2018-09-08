@@ -8,7 +8,9 @@ app.controller('loginCtrl', ['$scope', 'commonService', 'httpService', function(
 
   var checkLogin = function() {
     var url = commonService.URL_CHECK_LOGIN;
+    commonService.showProgress();
     httpService.GET(url).then(function (response) {
+      commonService.hideProgress();
       if (!!response.isLogin) {
         commonService.goState("home");
       }
@@ -20,9 +22,10 @@ app.controller('loginCtrl', ['$scope', 'commonService', 'httpService', function(
       "txtUsername": vm.username,
       "txtPassword": vm.password
     };
-
     var url = commonService.URL_LOGIN;
+    commonService.showProgress();
     httpService.POST(url, data).then(function (response) {
+      commonService.hideProgress();
       if (!!response.isLogin) {
         commonService.goState("home");
       }

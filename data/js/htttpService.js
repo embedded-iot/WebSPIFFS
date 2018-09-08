@@ -1,6 +1,6 @@
 'use strict';
 
-app.service('httpService', function($http, $q, $httpParamSerializerJQLike) {
+app.service('httpService', function($http, $q, $httpParamSerializerJQLike, commonService) {
 
   // implementation
   function POST(url, data) {

@@ -2,12 +2,14 @@
 <div class="container">
 	<!-- Main component for a primary marketing message or call to action -->
 	<div class="jumbotron">
-		<div class="heading-page">Cài đặt thông điệp</div>
+		<div class="heading-page" ng-if="vm.isEditMessage">Cài đặt thông điệp</div>
+		<div class="heading-page" ng-if="!vm.isEditMessage">Thông điệp mới</div>
 		<hr>
 
 		<div class="row no-margin list-wrapper">
 			<div class="col-md-12 panel panel-body no-padding maquee-display">
-				<marquee direction="left" class="marque">Lorem ipsum d dolor Lorem ipsu!</marquee>
+				<marquee class="marque" ng-if="vm.isMaque" id="marqueeText" direction="vm.directtion" scrolldelay="1">{{vm.newMessage.txtNameMessage}}</marquee>
+        <div class="marque" ng-if="!vm.isMaque">{{vm.newMessage.txtNameMessage}}</div>
 			</div>
 		</div>
 		<div class="row no-margin setting-wifi">
@@ -16,15 +18,12 @@
 				<div class="panel-body">
 					<div class="form-group">
 						<label>Nội dung</label>
-						<textarea class="form-control" rows="2" id="comment"></textarea>
+						<textarea class="form-control" rows="2" id="comment" ng-model="vm.newMessage.txtNameMessage"></textarea>
 					</div>
 					<div class="form-group">
 						<label>Font chữ</label>
-						<select class="form-control" id="sel1">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
+						<select class="form-control" ng-model="vm.newMessage.txtFontMessage">
+							<option ng-repeat="font in vm.txtFonts" value="{{font}}">{{font}}</option>
 						</select>
 					</div>
 				</div>
@@ -33,41 +32,38 @@
 				<div class="panel-heading">Hiệu ứng chuyển động</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<label>Thể loại</label>
-						<select class="form-control" id="motion">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
+						<label>Thể loại {{vm.selectedMotion}}</label>
+						<select class="form-control" ng-model="vm.newMessage.chboxMotionMessage" ng-change="vm.changeMotion(vm.newMessage.chboxMotionMessage)">
+              <option ng-repeat="motion in vm.txtMotions" value="{{motion.value}}">{{motion.name}}</option>
 						</select>
 					</div>
 					<div class="form-group">
 						<label>Tốc độ</label>
-						<input class="simple-slider" type="hidden" value="25"/>
+            <input class="simple-slider" id="simple-slider" ng-value="vm.newMessage.txtBaudMessage" ng-model="vm.newMessage.txtBaudMessage"/>
 					</div>
 					<div class="form-group">
 						<label>Lặp lại (lần)</label>
-						<input type="number" name="name" class="form-control" placeholder="" ng-model="user.name">
+						<input type="number" name="name" class="form-control" ng-model="vm.newMessage.txtRepeatMessage">
 					</div>
-				</div>
-			</div>
-			<div class="col-md-6 col-xs-12 panel panel-body setting-item">
-				<div class="form-group">
-					<label>Vị trí bắt đầu</label>
-					<div class="text-center">
-						<div><i class="glyphicon glyphicon-chevron-up glyphicon-large"></i></div>
-					</div>
-					<div class="text-center">
-						<div><i class="glyphicon glyphicon-chevron-left glyphicon-large"></i><i class="glyphicon glyphicon-chevron-right glyphicon-large"></i></div>
-					</div>
-					<div class="text-center">
-						<div><i class="glyphicon glyphicon-chevron-down glyphicon-large"></i></div>
-					</div>
+          <div class="form-group">
+            <label>Thay đổi vị trí hiển thị</label>
+            <div class="text-center">
+              <div><i class="glyphicon glyphicon-chevron-up glyphicon-large"></i></div>
+            </div>
+            <div class="text-center">
+              <div><i class="glyphicon glyphicon-chevron-left glyphicon-large"></i><i class="glyphicon glyphicon-chevron-right glyphicon-large"></i></div>
+            </div>
+            <div class="text-center">
+              <div><i class="glyphicon glyphicon-chevron-down glyphicon-large"></i></div>
+            </div>
+          </div>
 				</div>
 			</div>
 		</div>
-		<div class="text-center">
-			<a class="btn btn-primary" role="button" ng-click="vm.add()"><i class="glyphicon glyphicon-plus"></i> Add message</a>
-		</div>
+    <div class="listBtn">
+			<button class="btn btn-primary" role="button" ng-if="vm.isEditMessage == false" ng-click="vm.addMessage()"><i class="glyphicon glyphicon-plus"></i> Thêm thông điệp</button>
+      <button class="btn btn-primary" role="button" ng-if="vm.isEditMessage == true" ng-click="vm.addMessage()"><i class="glyphicon glyphicon-floppy-saved"></i> Lưu thay đổi</button>
+      <button class="btn btn-primary" role="button" ng-click="vm.goListMessage()"><i class="glyphicon glyphicon-floppy-remove"></i> Hủy bỏ</button>
+    </div>
 	</div>
 </div> <!-- /container -->

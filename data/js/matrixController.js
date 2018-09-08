@@ -30,23 +30,27 @@ app.controller('matrixCtrl', ['$scope', 'commonService', 'httpService', '$window
 
   var getConfig = function() {
     var url = commonService.URL_SETTING_MATRIX;
+    commonService.showProgress();
     httpService.GET(url).then(function (response) {
       getField(response);
       sliderLigth(vm.txtMinLight, vm.txtMaxLight);
+      commonService.hideProgress();
     });
   };
 
   vm.save = function () {
     var data = {
-      "txtDisplayAcross": vm.txtDisplayAcross,
-      "txtDisplayDown": vm.txtDisplayDown,
-      "txtLightMessage": vm.txtLightMessage,
-      "btnSaveSetting": true
+      txtDisplayAcross: vm.txtDisplayAcross,
+      txtDisplayDown: vm.txtDisplayDown,
+      txtLightMessage: vm.txtLightMessage,
+      btnSaveSetting: true
     };
 
     var url = commonService.URL_SETTING_MATRIX;
+    commonService.showProgress();
     httpService.POST(url, data).then(function (response) {
       getField(response);
+      commonService.hideProgress();
     });
   };
 

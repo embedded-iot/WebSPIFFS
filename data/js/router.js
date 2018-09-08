@@ -39,7 +39,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
           controller: 'messageCtrl',
           controllerAs: 'vm'
         }
-      }
+      },
+      params: { message: null}
     })
     .state('user', {
       url: '/user',

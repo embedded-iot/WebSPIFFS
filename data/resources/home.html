@@ -4,8 +4,8 @@
 		<div class="jumbotron">
 			<div class="heading-page">Danh sách thông điệp</div>
 			<hr>
-			<div class="row no-margin list-wrapper">
-				<div class="col-md-6 col-xs-12 panel panel-body  message-item panel-primary text-primary">
+			<div class="row no-margin list-wrapper" ng-if="vm.listMessage">
+				<!--<div class="col-md-6 col-xs-12 panel panel-body  message-item panel-primary text-primary">
 					<div class="remove-icon"><i class="glyphicon glyphicon-remove"></i></div>
 					<div>sjdasjdb sadbasd <i class="glyphicon glyphicon-edit cursor-pointer"></i></div>
 				</div>
@@ -13,7 +13,25 @@
 					<div class="remove-icon"><i class="glyphicon glyphicon-remove cursor-pointer"></i></div>
 					<div>sjdasjdb sadbasd</div>
 					<div class="cursor-pointer"><i class="glyphicon glyphicon-edit">Edit</i></div>
+				</div>-->
+				<div class="col-md-6 col-xs-12 panel panel-body message-item" ng-repeat="message in vm.listMessage">
+					<div class="round col-md-1 col-xs-2">
+						<input type="checkbox" id="checkbox" />
+						<label for="checkbox"></label>
+						<!--<label for="checkbox{{message.index}}"></label>-->
+					</div>
+					<div class="col-md-10">
+						<div class="remove-icon cursor-pointer" ng-click="vm.deleteMessage($index)"></div>
+						<div class="cursor-pointer" ng-click="vm.editMessage(message, $index)">{{message.name}}<i class="glyphicon glyphicon-edit cursor-pointer"></i></div>
+					</div>
+					<i class="glyphicon glyphicon-remove"></i>
 				</div>
+				<!-- panel-primary text-primary-->
+				<!--<div class="col-md-6 col-xs-12 panel panel-body message-item" >
+					<div class="remove-icon"><i class="glyphicon glyphicon-remove cursor-pointer"></i></div>
+					<div>{{message.name}}</div>
+					<div class="cursor-pointer"><i class="glyphicon glyphicon-edit">Edit</i></div>
+				</div>-->
 			</div>
 			<div class="listBtn">
 				<a class="btn btn-primary" role="button" ng-click="vm.add()"><i class="glyphicon glyphicon-plus"></i> Thêm thông điệp</a>

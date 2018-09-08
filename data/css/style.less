@@ -44,6 +44,89 @@ body{ background-image:url("../img/background-page.jpg"); background-repeat:no-r
   }
 }
 
+.progress-circle {
+  background: transparent;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+  .glyphicon-progress {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -20px 0 0  -20px;
+    font-size: 40px;
+  }
+}
+
+.glyphicon-refresh-animate {
+  -animation: spin .7s infinite linear;
+  -ms-animation: spin .7s infinite linear;
+  -webkit-animation: spinw .7s infinite linear;
+  -moz-animation: spinm .7s infinite linear;
+}
+
+@keyframes spin {
+  from { transform: scale(1) rotate(0deg);}
+  to { transform: scale(1) rotate(360deg);}
+}
+
+@-webkit-keyframes spinw {
+  from { -webkit-transform: rotate(0deg);}
+  to { -webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes spinm {
+  from { -moz-transform: rotate(0deg);}
+  to { -moz-transform: rotate(360deg);}
+}
+
+.round {
+  position: relative;
+}
+
+.round label {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 28px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 28px;
+}
+
+.round label:after {
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  content: "";
+  height: 6px;
+  left: 7px;
+  opacity: 0;
+  position: absolute;
+  top: 8px;
+  transform: rotate(-45deg);
+  width: 12px;
+}
+
+.round input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.round input[type="checkbox"]:checked + label {
+  background-color: #66bb6a;
+  border-color: #66bb6a;
+}
+
+.round input[type="checkbox"]:checked + label:after {
+  opacity: 1;
+}
+
+
 .remove-icon {
   position: absolute;
   right: 10px;
@@ -55,11 +138,18 @@ body{ background-image:url("../img/background-page.jpg"); background-repeat:no-r
     border-width: 2px;
     width: 100%;
     marign: 0;
+    vertical-align: top;
+    min-height: 59px;
     @media screen and (min-width: 768px) {
       width: calc(50% - 10px);
       &:nth-child(odd) {
         margin-right: 20px;
       }
+    }
+    .glyphicon-remove {
+      position: absolute;
+      right: 0;
+      margin: 15px;
     }
   }
 }
@@ -157,6 +247,7 @@ body{ background-image:url("../img/background-page.jpg"); background-repeat:no-r
     white-space: nowrap;
     @media screen and (min-width: 768px) {
       font-size: 85px;
+      //line-height: 73px;
     }
   }
 }
@@ -170,6 +261,7 @@ body{ background-image:url("../img/background-page.jpg"); background-repeat:no-r
   text-align: center;
   .btn {
     width: 100%;
+    margin-bottom: 10px;
     @media screen and (min-width: 768px) {
       width: auto;
     }

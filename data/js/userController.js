@@ -14,8 +14,10 @@ app.controller('userCtrl', ['$scope', 'commonService', 'httpService', function($
 
   var getConfig = function() {
     var url = commonService.URL_SETTING_COMMON;
+    commonService.showProgress();
     httpService.GET(url).then(function (response) {
       getField(response);
+      commonService.hideProgress();
     });
   };
 
@@ -28,8 +30,10 @@ app.controller('userCtrl', ['$scope', 'commonService', 'httpService', function($
     };
 
     var url = commonService.URL_SETTING_COMMON;
+    commonService.showProgress();
     httpService.POST(url, data).then(function (response) {
       getField(response);
+      commonService.hideProgress();
     });
   };
 

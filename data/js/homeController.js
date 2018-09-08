@@ -7,7 +7,40 @@ app.controller('homeCtrl', ['$scope', 'commonService', 'httpService', function($
   vm.list = [];
 
   vm.add = function () {
-    commonService.goState("message", {indexMessage: vm.list.length});
+    commonService.goState("message");
   };
+
+  vm.deleteMessage = function(index) {
+    var data = {
+      "txtIndexMessage": index,
+      "txtVerifyDelete": true
+    };
+    commonService.showProgress();
+    var url = commonService.URL_DELETE_MESSAGE;
+    httpService.POST(url, data).then(function (response) {
+      commonService.hideProgress();
+      if (!!response.btnDeleleMessage) {
+        getListMessage();
+      }
+
+    });
+
+  };
+
+  vm.editMessage = function (message, index) {
+    message.id = index;
+    commonService.goState("message", {message: message});
+  };
+
+  var getListMessage= function() {
+    commonService.showProgress();
+    var url = commonService.URL_LIST_MESSAGE;
+    httpService.GET(url).then(function (response) {
+      vm.listMessage = response;
+      commonService.hideProgress();
+    });
+  };
+
+  getListMessage();
 
 }]);
