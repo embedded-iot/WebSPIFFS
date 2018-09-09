@@ -40,7 +40,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
           controllerAs: 'vm'
         }
       },
-      params: { message: null}
+      params: { message: null, prevState: null}
     })
     .state('user', {
       url: '/user',

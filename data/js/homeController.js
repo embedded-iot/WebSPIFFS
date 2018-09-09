@@ -7,7 +7,7 @@ app.controller('homeCtrl', ['$scope', 'commonService', 'httpService', function($
   vm.list = [];
 
   vm.add = function () {
-    commonService.goState("message");
+    commonService.goState("message", {prevState: 'home'});
   };
 
   vm.deleteMessage = function(index) {
@@ -29,7 +29,26 @@ app.controller('homeCtrl', ['$scope', 'commonService', 'httpService', function($
 
   vm.editMessage = function (message, index) {
     message.id = index;
-    commonService.goState("message", {message: message});
+    commonService.goState("message", {message: message, prevState: 'home'});
+  };
+
+  vm.toogleStatusMessage = function (message, index) {
+    var message  = message;
+    var data = {
+      "txtIndexMessage": index,
+      "updatechboxStatus": message.status,
+      "btnSaveList": true
+    };
+    commonService.showProgress();
+    var url = commonService.URL_UPDATE_STATUS;
+    httpService.POST(url, data).then(function (response) {
+      commonService.hideProgress();
+      if (!!response.btnSaveList) {
+        getListMessage();
+      }
+
+    });
+
   };
 
   var getListMessage= function() {

@@ -149,7 +149,8 @@ body{ background-image:url("../img/background-page.jpg"); background-repeat:no-r
     .glyphicon-remove {
       position: absolute;
       right: 0;
-      margin: 15px;
+      right: 10px;
+      top: 15px;
     }
   }
 }
@@ -178,9 +179,12 @@ body{ background-image:url("../img/background-page.jpg"); background-repeat:no-r
 
 .matrix-board {
   padding-top: 0 !important;
+  @media screen and (min-width: 768px) {
+    padding-top: 15px !important;
+  }
   .matrix-img {
     height: 151px;
-    background-image:url("../img/p10.jpg");
+    background-image:url("../img/p10_1.jpg");
     background-repeat:no-repeat;
     background-position:center;
     background-size:cover;
@@ -194,14 +198,13 @@ body{ background-image:url("../img/background-page.jpg"); background-repeat:no-r
     height: 100%;
     left: 0;
     top: 0;
-    padding-top: 15px;
-    font-size: 82px;
+    font-size: 100px;
     color: #fff;
     /* text-shadow: 0 0 0.2em #FAD, 0 0 0.2em #F87; */
     text-shadow: 0 0 150px #FFF, 0 0 60px #FFF, 0 0 10px #FFF;
     @media screen and (min-width: 768px) {
-      padding-top: 25px;
-      font-size: 153px;
+      padding-top: 21px;
+      font-size: 170px;
     }
   }
   .matrix-down {
@@ -245,6 +248,7 @@ body{ background-image:url("../img/background-page.jpg"); background-repeat:no-r
     /* text-shadow: 0 0 0.2em #FAD, 0 0 0.2em #F87; */
     text-shadow: 0 0 150px #FFF, 0 0 60px #FFF, 0 0 10px #FFF;
     white-space: nowrap;
+    overflow: hidden;
     @media screen and (min-width: 768px) {
       font-size: 85px;
       //line-height: 73px;

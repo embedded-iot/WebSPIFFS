@@ -3,7 +3,10 @@
 app.service('commonService',['$state', function($state) {
 
   var URL = "http://192.168.1.100";
-
+  var hostName = window.location.hostname;
+  if (!!hostName) {
+    URL = hostName;
+  }
 
   var service = {
     URL_CHECK_LOGIN: URL + '/isLogin',
@@ -15,6 +18,7 @@ app.service('commonService',['$state', function($state) {
     URL_CREATE_MESSAGE: URL + '/createMessage',
     URL_LIST_MESSAGE: URL + '/listMessage',
     URL_DELETE_MESSAGE: URL + '/verifyDelete',
+    URL_UPDATE_STATUS: URL + '/updateStatus',
   };
 
   service.goState = function (state, params) {

@@ -25,6 +25,10 @@ app.controller('messageCtrl', ['$scope', 'commonService', 'httpService', '$state
   };
 
   var getSettings= function() {
+    var prevState = $state.params.prevState;
+    if (!prevState) {
+      commonService.goState("home");
+    }
     var url = commonService.URL_GET_SETTINGS;
     commonService.showProgress();
     httpService.GET(url).then(function (response) {

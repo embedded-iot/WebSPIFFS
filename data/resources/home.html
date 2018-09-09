@@ -14,17 +14,16 @@
 					<div>sjdasjdb sadbasd</div>
 					<div class="cursor-pointer"><i class="glyphicon glyphicon-edit">Edit</i></div>
 				</div>-->
-				<div class="col-md-6 col-xs-12 panel panel-body message-item" ng-repeat="message in vm.listMessage">
-					<div class="round col-md-1 col-xs-2">
-						<input type="checkbox" id="checkbox" />
-						<label for="checkbox"></label>
+				<div class="col-md-6 col-xs-12 panel panel-body message-item" ng-repeat="message in vm.listMessage" ng-class="{'panel-primary': message.status}">
+					<div class="round col-md-1 col-xs-1">
+						<input type="checkbox" id="checkbox{{$index}}" ng-model="message.status" ng-click="vm.toogleStatusMessage(message, $index)"/>
+						<label for="checkbox{{$index}}"></label>
 						<!--<label for="checkbox{{message.index}}"></label>-->
 					</div>
-					<div class="col-md-10">
-						<div class="remove-icon cursor-pointer" ng-click="vm.deleteMessage($index)"></div>
+					<div class="col-md-10 col-xs-10 no-padding">
 						<div class="cursor-pointer" ng-click="vm.editMessage(message, $index)">{{message.name}}<i class="glyphicon glyphicon-edit cursor-pointer"></i></div>
 					</div>
-					<i class="glyphicon glyphicon-remove"></i>
+					<i class="glyphicon glyphicon-remove cursor-pointer" ng-click="vm.deleteMessage($index)"></i>
 				</div>
 				<!-- panel-primary text-primary-->
 				<!--<div class="col-md-6 col-xs-12 panel panel-body message-item" >
