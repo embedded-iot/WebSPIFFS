@@ -2,8 +2,7 @@
 'use strict';
 
 var app = angular.module('myApp', [
-  'ui.router',
-  'angular-marquee'
+  'ui.router'
 ]);
 
 app.controller("MainController",['$scope', '$state', 'httpService', 'commonService', '$timeout',

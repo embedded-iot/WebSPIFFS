@@ -2,10 +2,10 @@
 
 app.service('commonService',['$state', function($state) {
 
-  var URL = "http://192.168.1.100";
+  var URL = "http://192.168.4.1";
   var hostName = window.location.hostname;
   if (!!hostName) {
-    URL = hostName;
+    URL = "";
   }
 
   var service = {
