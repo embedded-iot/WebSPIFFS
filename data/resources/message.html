@@ -8,11 +8,73 @@
 
 		<div class="row no-margin list-wrapper">
 			<div class="col-md-12 panel panel-body no-padding maquee-display">
-				<marquee class="marque" ng-if="vm.isMaque" id="marqueeText" direction="vm.directtion" scrolldelay="1">{{vm.newMessage.txtNameMessage}}</marquee>
-        <div class="marque" ng-if="!vm.isMaque">{{vm.newMessage.txtNameMessage}}</div>
+				<marquee class="marque" ng-if="vm.isMaque" id="marqueeText" direction="vm.directtion" scrolldelay="1">
+          <div style="margin-top: {{vm.newMessage.txtMarginTopMessage * 7}}px;margin-left: {{vm.newMessage.txtMarginLeftMessage * 7}}px;">{{vm.newMessage.txtNameMessage}}</div>
+        </marquee>
+        <div class="marque" ng-if="!vm.isMaque">
+          <div style="margin-top: {{vm.newMessage.txtMarginTopMessage * 7}}px; margin-left: {{vm.newMessage.txtMarginLeftMessage * 7}}px;">{{vm.newMessage.txtNameMessage}}</div>
+        </div>
 			</div>
 		</div>
-		<div class="row no-margin setting-wifi">
+    <div class="row no-margin display-mobile">
+      <ul class="nav nav-tabs text-center">
+        <li ng-class="{'active': vm.tab === 1}" ng-click="vm.tabActive(1)"><a><i class="glyphicon glyphicon-text-color"></i></a></li>
+        <li ng-class="{'active': vm.tab === 2}" ng-click="vm.tabActive(2)"><a><i class="glyphicon glyphicon-move"></i></a></li>
+        <li ng-class="{'active': vm.tab === 3}" ng-click="vm.tabActive(3)"><a><i class="glyphicon glyphicon-text-height"></i></a></li>
+      </ul>
+      <div class="panel panel-default col-md-6 col-xs-12 no-padding setting-item" ng-if="vm.tab === 1">
+        <!--<div class="panel-heading">Nội dung thông điệp</div>-->
+        <div class="panel-body">
+          <div class="form-group">
+            <label>Nội dung</label>
+            <textarea class="form-control" rows="2" id="comment" ng-model="vm.newMessage.txtNameMessage"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Font chữ</label>
+            <select class="form-control" ng-model="vm.newMessage.txtFontMessage">
+              <option ng-repeat="font in vm.txtFonts" value="{{font}}">{{font}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default col-md-6 col-xs-12 no-padding setting-item" ng-if="vm.tab === 2">
+        <!--<div class="panel-heading">Hiệu ứng chuyển động</div>-->
+        <div class="panel-body">
+          <div class="form-group">
+            <label>Thể loại {{vm.selectedMotion}}</label>
+            <select class="form-control" ng-model="vm.newMessage.chboxMotionMessage" ng-change="vm.changeMotion(vm.newMessage.chboxMotionMessage)">
+              <option ng-repeat="motion in vm.txtMotions" value="{{motion.value}}">{{motion.name}}</option>
+            </select>
+          </div>
+          <div class="form-group" ng-class="{'disabled': !vm.showBaudMsg}">
+            <label>Tốc độ</label>
+            <input class="simple-slider" id="simple-slider" ng-value="vm.newMessage.txtBaudMessage" ng-model="vm.newMessage.txtBaudMessage"/>
+          </div>
+          <div class="form-group">
+            <label>Lặp lại (lần)</label>
+            <input type="number" name="name" class="form-control" ng-model="vm.newMessage.txtRepeatMessage">
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default col-md-6 col-xs-12 no-padding setting-item" ng-if="vm.tab === 3">
+        <!--<div class="panel-heading">Nội dung thông điệp</div>-->
+        <div class="panel-body">
+          <div class="form-group">
+            <label>Thay đổi vị trí hiển thị ({{vm.newMessage.txtMarginTopMessage}}, {{vm.newMessage.txtMarginLeftMessage}})</label>
+            <div class="text-center margin-message">
+              <i class="glyphicon glyphicon-chevron-up glyphicon-large" ng-hide="!vm.alignTop" ng-click="vm.changeMarginTop(-1)"></i>
+            </div>
+            <div class="text-center margin-message">
+              <i class="glyphicon glyphicon-chevron-left glyphicon-large" ng-hide="!vm.alignLeft" ng-click="vm.changeMarginLeft(-1)"></i><i class="glyphicon glyphicon-chevron-right glyphicon-large" ng-hide="!vm.alignLeft" ng-click="vm.changeMarginLeft(1)"></i>
+            </div>
+            <div class="text-center margin-message">
+              <i class="glyphicon glyphicon-chevron-down glyphicon-large" ng-hide="!vm.alignTop" ng-click="vm.changeMarginTop(1)"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row no-margin setting-wifi display-pc">
 			<div class="panel panel-default col-md-6 col-xs-12 no-padding setting-item">
 				<div class="panel-heading">Nội dung thông điệp</div>
 				<div class="panel-body">
@@ -37,7 +99,7 @@
               <option ng-repeat="motion in vm.txtMotions" value="{{motion.value}}">{{motion.name}}</option>
 						</select>
 					</div>
-					<div class="form-group">
+					<div class="form-group" ng-class="{'disabled': !vm.showBaudMsg}">
 						<label>Tốc độ</label>
             <input class="simple-slider" id="simple-slider" ng-value="vm.newMessage.txtBaudMessage" ng-model="vm.newMessage.txtBaudMessage"/>
 					</div>
@@ -46,15 +108,15 @@
 						<input type="number" name="name" class="form-control" ng-model="vm.newMessage.txtRepeatMessage">
 					</div>
           <div class="form-group">
-            <label>Thay đổi vị trí hiển thị</label>
-            <div class="text-center">
-              <div><i class="glyphicon glyphicon-chevron-up glyphicon-large"></i></div>
+            <label>Thay đổi vị trí hiển thị ({{vm.newMessage.txtMarginTopMessage}}, {{vm.newMessage.txtMarginLeftMessage}})</label>
+            <div class="text-center margin-message">
+              <i class="glyphicon glyphicon-chevron-up glyphicon-large" ng-hide="!vm.alignTop" ng-click="vm.changeMarginTop(-1)"></i>
             </div>
-            <div class="text-center">
-              <div><i class="glyphicon glyphicon-chevron-left glyphicon-large"></i><i class="glyphicon glyphicon-chevron-right glyphicon-large"></i></div>
+            <div class="text-center margin-message">
+              <i class="glyphicon glyphicon-chevron-left glyphicon-large" ng-hide="!vm.alignLeft" ng-click="vm.changeMarginLeft(-1)"></i><i class="glyphicon glyphicon-chevron-right glyphicon-large" ng-hide="!vm.alignLeft" ng-click="vm.changeMarginLeft(1)"></i>
             </div>
-            <div class="text-center">
-              <div><i class="glyphicon glyphicon-chevron-down glyphicon-large"></i></div>
+            <div class="text-center margin-message">
+              <i class="glyphicon glyphicon-chevron-down glyphicon-large" ng-hide="!vm.alignTop" ng-click="vm.changeMarginTop(1)"></i>
             </div>
           </div>
 				</div>

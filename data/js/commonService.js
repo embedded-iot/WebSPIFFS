@@ -2,7 +2,7 @@
 
 app.service('commonService',['$state', function($state) {
 
-  var URL = "http://192.168.4.1";
+  var URL = "http://192.168.1.100";
   var hostName = window.location.hostname;
   if (!!hostName) {
     URL = "";
@@ -26,11 +26,17 @@ app.service('commonService',['$state', function($state) {
   };
 
   service.showProgress = function () {
-    $('body').append("<div class='progress-circle'><span class=\"glyphicon glyphicon-refresh glyphicon-refresh-animate glyphicon-progress\"></span></div>" );
+    var progress = $(".progress-circle" );
+    if (!progress.length) {
+      $('body').append("<div class='progress-circle'><span class=\"glyphicon glyphicon-refresh glyphicon-refresh-animate glyphicon-progress\"></span></div>" );
+    }
   };
 
   service.hideProgress = function () {
-    $( ".progress-circle" ).remove();
+    var progress = $(".progress-circle" );
+    if (!!progress.length) {
+      $( ".progress-circle" ).remove();
+    }
   };
 
   return service;

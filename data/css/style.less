@@ -21,6 +21,33 @@ body{ background-image:url("../img/background-page.jpg"); background-repeat:no-r
   }
 }
 
+.display-mobile {
+  display: block;
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+  .nav-tabs {
+    li {
+      width: calc(~'100% / 3');
+      margin-bottom: -2px;
+      &.active {
+        z-index: 1;
+        border-bottom: none;
+      }
+      .glyphicon  {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.display-pc {
+  display: none;
+  @media screen and (min-width: 768px) {
+    display: block;
+  }
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -245,16 +272,33 @@ body{ background-image:url("../img/background-page.jpg"); background-repeat:no-r
     height: 100%;
     font-size: 80px;
     color: #fff;
+    line-height: 67px;
     /* text-shadow: 0 0 0.2em #FAD, 0 0 0.2em #F87; */
     text-shadow: 0 0 150px #FFF, 0 0 60px #FFF, 0 0 10px #FFF;
     white-space: nowrap;
     overflow: hidden;
     @media screen and (min-width: 768px) {
       font-size: 85px;
+      line-height: 65px;
       //line-height: 73px;
     }
   }
 }
+
+.margin-message {
+  height: 35px;
+  .glyphicon {
+    &.disabled {
+      display: none;
+    }
+  }
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 .glyphicon-large {
   font-size: 35px;
   margin: 0 14px;

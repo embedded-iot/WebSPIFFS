@@ -10,6 +10,7 @@ app.controller('messageCtrl', ['$scope', 'commonService', 'httpService', '$state
   $scope.duration = 10000;
   vm.isMaque = false;
   vm.marquee = {};
+  var baud = 0;
   var sliderBaud = function (min, max) {
     $(document).ready(function(){
       var slider = $('.simple-slider');
@@ -47,11 +48,13 @@ app.controller('messageCtrl', ['$scope', 'commonService', 'httpService', '$state
           "txtFontMessage": message.font,
           "chboxMotionMessage": message.motion,
           "txtRepeatMessage": message.repeat,
-          "txtBaudMessage": message.baud
+          "txtBaudMessage": message.baud,
+          "txtMarginTopMessage": (message.top || 0),
+          "txtMarginLeftMessage": (message.left || 0),
         };
         sliderBaud(vm.txtMinBaud, vm.txtMaxBaud);
         // vm.marquee.scrollDelay = message.baud;
-
+        baud = vm.newMessage.txtBaudMessage;
         onSlider();
         vm.changeMotion(message.motion);
       }
@@ -63,19 +66,44 @@ app.controller('messageCtrl', ['$scope', 'commonService', 'httpService', '$state
     });
   };
 
+  vm.tab = 1;
+  vm.tabActive = function(tabName) {
+    vm.tab = tabName;
+    if (tabName == 2) {
+      if (vm.newMessage.txtBaudMessage == 'NaN') {
+        vm.newMessage.txtBaudMessage = baud;
+      }
+      sliderBaud(vm.txtMinBaud, vm.txtMaxBaud);
+    }
+  };
+
 
   var newMessage= function() {
     var url = commonService.URL_CREATE_MESSAGE;
     commonService.showProgress();
     httpService.GET(url).then(function (response) {
       vm.newMessage = response;
+      baud = vm.newMessage.txtBaudMessage;
       sliderBaud(vm.txtMinBaud, vm.txtMaxBaud);
       commonService.hideProgress();
     });
   };
 
+  vm.changeMarginTop = function(count) {
+    vm.newMessage.txtMarginTopMessage += count;
+    console.log(vm.newMessage.txtMarginTopMessage);
+  };
+
+  vm.changeMarginLeft = function(count) {
+    vm.newMessage.txtMarginLeftMessage += count;
+    console.log(vm.newMessage.txtMarginLeftMessage);
+  };
+
   vm.addMessage = function() {
     vm.newMessage.btnSaveMessage = true;
+    if (vm.newMessage.txtBaudMessage == 'NaN') {
+      vm.newMessage.txtBaudMessage = baud;
+    }
     var data = vm.newMessage;
     commonService.showProgress();
     var url = commonService.URL_CREATE_MESSAGE;
@@ -99,16 +127,28 @@ app.controller('messageCtrl', ['$scope', 'commonService', 'httpService', '$state
 
     if (motion == 'stop') {
       vm.isMaque = false;
+      vm.alignTop = true;
+      vm.alignLeft = true;
+      vm.showBaudMsg = false;
       return;
     } else {
       vm.isMaque = false;
       vm.isMaque = true;
+      vm.showBaudMsg = true;
+      if (motion == 'left' || motion == 'right') {
+        vm.alignTop = true;
+        vm.alignLeft = false;
+      } else if (motion == 'up' || motion == 'down') {
+        vm.alignTop = false;
+        vm.alignLeft = true;
+      }
     }
     vm.marquee.directtion = motion;
     vm.marQueSetting();
-  };
-  vm.marQueSetting = function() {
 
+  };
+
+  vm.marQueSetting = function() {
     var watchMarquee = $scope.$watch(function () {
       var eMar = document.getElementById("marqueeText");
       return eMar;
@@ -137,10 +177,13 @@ app.controller('messageCtrl', ['$scope', 'commonService', 'httpService', '$state
       if (typeof vm.newMessage == "undefined")
         return null;
       return vm.newMessage.txtBaudMessage;
-    }, function (value) {
-      if (value) {
-        console.log(value);
-        vm.marquee.scrollDelay = value;
+    }, function (newValue, oldValue) {
+      if (newValue == 'NaN') {
+        vm.newMessage.txtBaudMessage = baud;
+      }
+      if (newValue !== 'NaN' && !!newValue && newValue !== oldValue) {
+        console.log(newValue);
+        vm.marquee.scrollDelay = newValue;
         vm.marQueSetting();
       }
     });
