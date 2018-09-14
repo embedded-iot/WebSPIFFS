@@ -10,6 +10,10 @@ app.controller('messageCtrl', ['$scope', 'commonService', 'httpService', '$state
   $scope.duration = 10000;
   vm.isMaque = false;
   vm.marquee = {};
+
+  vm.alignTop = true;
+  vm.alignLeft = true;
+
   var baud = 0;
   var sliderBaud = function (min, max) {
     $(document).ready(function(){
