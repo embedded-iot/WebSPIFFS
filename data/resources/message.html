@@ -11,7 +11,7 @@
 				<marquee class="marque" ng-if="vm.isMaque" id="marqueeText" direction="vm.directtion" scrolldelay="1">
           <div style="margin-top: {{vm.newMessage.txtMarginTopMessage * 7}}px;margin-left: {{vm.newMessage.txtMarginLeftMessage * 7}}px;">{{vm.newMessage.txtNameMessage}}</div>
         </marquee>
-        <div class="marque" ng-if="!vm.isMaque">
+        <div class="marque" ng-if="!vm.isMaque" ng-hide="vm.hiddenMarque">
           <div style="margin-top: {{vm.newMessage.txtMarginTopMessage * 7}}px; margin-left: {{vm.newMessage.txtMarginLeftMessage * 7}}px;">{{vm.newMessage.txtNameMessage}}</div>
         </div>
 			</div>
@@ -33,6 +33,12 @@
             <label>Font chữ</label>
             <select class="form-control" ng-model="vm.newMessage.txtFontMessage">
               <option ng-repeat="font in vm.txtFonts" value="{{font}}">{{font}}</option>
+            </select>
+          </div>
+          <div class="form-group" ng-if="vm.newMessage && vm.newMessage.txtDirectionMessage">
+            <label>Hướng đi {{vm.newMessage.txtDirectionMessage}}</label>
+            <select class="form-control" ng-model="vm.newMessage.txtDirectionMessage">
+              <option ng-repeat="direction in vm.txtDirections" value="{{direction.value}}">{{direction.name}}</option>
             </select>
           </div>
         </div>
@@ -88,6 +94,12 @@
 							<option ng-repeat="font in vm.txtFonts" value="{{font}}">{{font}}</option>
 						</select>
 					</div>
+          <div class="form-group" ng-if="vm.newMessage && vm.newMessage.txtDirectionMessage">
+            <label>Hướng đi {{vm.newMessage.txtDirectionMessage}}</label>
+            <select class="form-control" ng-model="vm.newMessage.txtDirectionMessage">
+              <option ng-repeat="direction in vm.txtDirections" value="{{direction.value}}">{{direction.name}}</option>
+            </select>
+          </div>
 				</div>
 			</div>
 			<div class="panel panel-default col-md-6 col-xs-12 no-padding setting-item">

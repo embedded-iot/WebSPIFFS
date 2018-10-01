@@ -1,8 +1,8 @@
 
 'use strict';
 
-app.controller('messageCtrl', ['$scope', 'commonService', 'httpService', '$state', '$timeout',
-  function($scope, commonService, httpService, $state, $timeout) {
+app.controller('messageCtrl', ['$scope', 'commonService', 'httpService', '$state', '$timeout', "$interval",
+  function($scope, commonService, httpService, $state, $timeout, $interval) {
   var vm = this;
 
   $scope.title = "Hello World!";
@@ -39,6 +39,7 @@ app.controller('messageCtrl', ['$scope', 'commonService', 'httpService', '$state
     httpService.GET(url).then(function (response) {
       vm.txtFonts = response.txtFonts;
       vm.txtMotions = response.txtMotions;
+      vm.txtDirections = response.txtDirections;
       vm.txtMaxBaud = response.txtMaxBaud;
       vm.txtMinBaud = response.txtMinBaud;
       commonService.hideProgress();
@@ -51,6 +52,7 @@ app.controller('messageCtrl', ['$scope', 'commonService', 'httpService', '$state
           "txtNameMessage": message.name,
           "txtFontMessage": message.font,
           "chboxMotionMessage": message.motion,
+          "txtDirectionMessage": message.dir,
           "txtRepeatMessage": message.repeat,
           "txtBaudMessage": message.baud,
           "txtMarginTopMessage": (message.top || 0),
@@ -79,6 +81,10 @@ app.controller('messageCtrl', ['$scope', 'commonService', 'httpService', '$state
       }
       sliderBaud(vm.txtMinBaud, vm.txtMaxBaud);
     }
+  };
+
+  vm.changedDirection = function (value) {
+    console.log(value);
   };
 
 
@@ -123,17 +129,36 @@ app.controller('messageCtrl', ['$scope', 'commonService', 'httpService', '$state
     commonService.goState("home");
   };
 
+  var timeInterval ;
+  function Blink (timer) {
+    $interval.cancel(timeInterval);
+    timeInterval = $interval(function () {
+      console.log("Blink" + timer);
+      $timeout(function () {
+        vm.hiddenMarque = !vm.hiddenMarque;
+      }, 0);
+    }, timer);
+  };
+
   vm.changeMotion = function(motion) {
     console.log(motion);
     if (!motion) {
       return;
     }
-
+    vm.hiddenMarque = false;
     if (motion == 'stop') {
       vm.isMaque = false;
       vm.alignTop = true;
       vm.alignLeft = true;
       vm.showBaudMsg = false;
+      $interval.cancel(timeInterval);
+      return;
+    } else if (motion == 'blink') {
+      vm.isMaque = false;
+      vm.alignTop = true;
+      vm.alignLeft = true;
+      vm.showBaudMsg = true;
+      Blink(vm.newMessage.txtBaudMessage);
       return;
     } else {
       vm.isMaque = false;
@@ -193,6 +218,7 @@ app.controller('messageCtrl', ['$scope', 'commonService', 'httpService', '$state
     });
     $scope.$on('$destroy', function() {
       watchSlider();
+      $interval.cancel(timeInterval);
     });
   };
 

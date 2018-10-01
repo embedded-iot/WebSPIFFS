@@ -22,12 +22,11 @@ app.controller("MainController",['$scope', '$state', 'httpService', 'commonServi
         isLogin = true;
 			}
 		});
-    // $timeout(function () {
-    //   commonService.hideProgress();
-    // 	if (isLogin == false) {
-    //     goState("login");
-		// 	}
-    // }, 2000);
+    // if ($state.current.name !== 'login') {
+    //   $timeout(function () {
+    //     checkLogin();
+    //   }, 5000);
+		// }
 	};
 
 	checkLogin();

@@ -22,6 +22,10 @@
 					</div>
 					<div class="col-md-10 col-xs-10 no-padding">
 						<div class="cursor-pointer" ng-click="vm.editMessage(message, $index)">{{message.name}}<i class="glyphicon glyphicon-edit cursor-pointer"></i></div>
+						<div>
+							<i ng-if="message.dir === 'prev' || message.dir === 'all'" class="glyphicon glyphicon-backward"></i>
+							<i ng-if="message.dir === 'next' || message.dir === 'all'" class="glyphicon glyphicon-forward"></i>
+						</div>
 					</div>
 					<i class="glyphicon glyphicon-remove cursor-pointer" ng-click="vm.deleteMessage($index)"></i>
 				</div>
