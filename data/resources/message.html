@@ -106,7 +106,7 @@
 				<div class="panel-heading">Hiệu ứng chuyển động</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<label>Thể loại {{vm.selectedMotion}}</label>
+						<label>Thể loại</label>
 						<select class="form-control" ng-model="vm.newMessage.chboxMotionMessage" ng-change="vm.changeMotion(vm.newMessage.chboxMotionMessage)">
               <option ng-repeat="motion in vm.txtMotions" value="{{motion.value}}">{{motion.name}}</option>
 						</select>
@@ -137,7 +137,7 @@
     <div class="listBtn">
 			<button class="btn btn-primary" role="button" ng-if="vm.isEditMessage == false" ng-click="vm.addMessage()"><i class="glyphicon glyphicon-plus"></i> Thêm thông điệp</button>
       <button class="btn btn-primary" role="button" ng-if="vm.isEditMessage == true" ng-click="vm.addMessage()"><i class="glyphicon glyphicon-floppy-saved"></i> Lưu thay đổi</button>
-      <button class="btn btn-primary" role="button" ng-click="vm.goListMessage()"><i class="glyphicon glyphicon-floppy-remove"></i> Hủy bỏ</button>
+      <button class="btn btn-primary" role="button" ng-click="vm.goListMessage()"><i class="glyphicon glyphicon-floppy-remove"></i> Trở về</button>
     </div>
 	</div>
 </div> <!-- /container -->

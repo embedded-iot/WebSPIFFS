@@ -37,6 +37,10 @@ app.controller('userCtrl', ['$scope', 'commonService', 'httpService', function($
     });
   };
 
+  vm.goListMessage = function() {
+    commonService.goState("home");
+  };
+
   getConfig();
 
 }]);

@@ -54,6 +54,9 @@ app.controller('matrixCtrl', ['$scope', 'commonService', 'httpService', '$window
     });
   };
 
+  vm.goListMessage = function() {
+    commonService.goState("home");
+  };
 
   getConfig();
 
